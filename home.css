@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root{
   --bg:#0A0A0A;
   --mid:#0F172A;
@@ -94,3 +95,101 @@ footer{max-width:1200px; margin:32px auto; padding:24px; color:var(--muted)}
 .fade-up{opacity:0; transform:translateY(12px); transition:all .6s cubic-bezier(.16,.84,.44,1)}
 .fade-up.show{opacity:1; transform:none}
 .hover-glow:hover{box-shadow:0 10px 30px rgba(255,193,7,0.12); transform:translateY(-4px)}
+=======
+:root{
+  --bg:#0A0A0A;
+  --mid:#0F172A;
+  --muted:#9CA3AF;
+  --gold:#FFC107;
+  --gold-dark:#E5AD00;
+  --text:#F8F8F2;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit; text-decoration:none}
+
+/* Header */
+.header{
+  position:sticky; top:0; z-index:60; background:rgba(10,10,10,0.8); backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.nav{
+  max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px;
+}
+.logo{display:flex; align-items:center; gap:12px}
+.logo img{height:48px; width:48px; border-radius:8px; object-fit:cover}
+.logo h1{font-family:Poppins; font-size:18px; margin:0; color:var(--gold)}
+.menu{display:flex; gap:18px; align-items:center}
+.menu a{color:var(--muted); font-weight:600; font-size:14px}
+.btn-gold{background:linear-gradient(180deg,var(--gold),var(--gold)); color:#111; padding:8px 14px; border-radius:10px; font-weight:700}
+.burger{display:none}
+
+/* Hero */
+.hero{
+  max-width:1200px; margin:28px auto; display:grid; grid-template-columns:1fr 420px; gap:28px; padding:24px;
+  align-items:center;
+}
+.hero-left h2{font-family:Poppins; font-size:36px; margin:0 0 12px}
+.hero-left p{color:var(--muted); margin:0 0 18px; line-height:1.5}
+.hero-ctas{display:flex; gap:12px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px; border-radius:14px; border:1px solid rgba(255,255,255,0.03)}
+.hero-right{display:flex; flex-direction:column; gap:12px; align-items:center}
+.studio-image{width:100%; height:320px; border-radius:12px; object-fit:cover; box-shadow: 0 8px 30px rgba(0,0,0,0.6)}
+
+/* Tattoo types */
+.types{max-width:1200px; margin:24px auto; padding:24px; display:flex; gap:12px; flex-wrap:wrap}
+.type-card{flex:1 1 220px; min-width:180px; background:var(--mid); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.03)}
+.type-card h4{margin:0 0 6px; font-family:Poppins}
+.type-card p{margin:0; color:var(--muted); font-size:13px}
+
+/* Masonry gallery */
+.gallery-wrap{max-width:1200px; margin:18px auto; padding:24px}
+.masonry{column-count:3; column-gap:14px}
+.masonry img{width:100%; display:block; margin-bottom:14px; border-radius:10px; break-inside:avoid}
+
+/* Precautions */
+.precautions{max-width:1200px; margin:18px auto; padding:24px; display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.precautions ul{color:var(--muted); line-height:1.6}
+
+/* AR Try-On */
+.ar-section{max-width:1200px; margin:18px auto; padding:24px; display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap}
+.ar-card{flex:1 1 520px; background:var(--mid); padding:16px; border-radius:12px; position:relative}
+#camera-preview{width:100%; height:420px; background:#000; border-radius:8px; object-fit:cover}
+.overlay-tattoo{position:absolute; width:150px; left:50%; top:50%; transform:translate(-50%,-50%); cursor:move; touch-action:none}
+.ar-controls{display:flex; gap:8px; margin-top:8px}
+
+/* Booking */
+.booking{max-width:1200px; margin:28px auto; padding:24px; display:grid; grid-template-columns:1fr 420px; gap:18px}
+form label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
+input,select,textarea{width:100%; padding:10px 12px; border-radius:8px; background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--text)}
+
+/* Footer */
+footer{max-width:1200px; margin:32px auto; padding:24px; color:var(--muted)}
+.footer-grid{display:flex; gap:18px; flex-wrap:wrap}
+
+/* Responsive */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr; padding:18px}
+  .masonry{column-count:2}
+  .precautions{grid-template-columns:1fr}
+  .booking{grid-template-columns:1fr}
+  .menu{display:none}
+  .burger{display:block}
+}
+@media(max-width:520px){
+  .masonry{column-count:1}
+  .hero-left h2{font-size:26px}
+}
+
+/* Animations */
+.fade-up{opacity:0; transform:translateY(12px); transition:all .6s cubic-bezier(.16,.84,.44,1)}
+.fade-up.show{opacity:1; transform:none}
+.hover-glow:hover{box-shadow:0 10px 30px rgba(255,193,7,0.12); transform:translateY(-4px)}
+>>>>>>> 7039f5e6433d576b9eec9c106e880a25b7ba44b8
