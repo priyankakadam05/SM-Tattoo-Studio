@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Studio Name — Tattoo & Courses</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="home.css">
@@ -16,12 +12,13 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div class="nav">
+    <div class="navbar">
       <div class="logo">
-        <img src="logo-placeholder.png" alt="logo">
         <div>
-          <h1>Ink & Teach</h1>
-          <div style="font-size:12px;color:var(--muted)">Home Service • Courses • Studio</div>
+        <img id="logo-img" src="SM-logo.png" alt="logo">
+        </div>
+        <div>
+          <H3 id="logo-text">Tattoo</H3>
         </div>
       </div>
 
@@ -31,38 +28,26 @@
         <a href="#courses">Courses</a>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
-        <a class="btn-gold" href="#booking">Book</a>
+        <button id="search-btn">Search</button>
       </nav>
-
-      <div class="burger">
-        <button aria-label="menu" style="background:none;border:none;color:var(--muted)">☰</button>
-      </div>
     </div>
   </header>
 
   <!-- HERO -->
   <main id="home">
     <section class="hero">
-      <div class="hero-left">
-        <h2>Real-World Tattoos • Home Service • Learn from the Pros</h2>
-        <p>We bring professional tattoo artists to your home, run certified courses, and let you preview tattoos with AR. Book, learn, or try — all in one place.</p>
-        <div class="hero-ctas">
-          <a class="card btn-gold" href="#gallery">View Gallery</a>
-          <button class="card" onclick="openAR()">Try AR</button>
+      <div>
+        <div>
+        <h2 id="hero-h2"><span>SM</span> TATTOO STUDIO</h2>
+        <h4 id="hero-h3">INK YOUR STORY</h4>
         </div>
-        <div style="margin-top:14px; display:flex; gap:8px; color:var(--muted); font-size:13px">
-          <div>✅ Home Service Available</div><div>✅ Certified Trainers</div><div>✅ Safe Aftercare</div>
+        <div class="btns">
+        <div class="booking-btn">
+<button id="booking"> Book Appointment</button>
         </div>
-      </div>
-
-      <div class="hero-right">
-        <img src="studio-sample.jpg" alt="studio" class="studio-image">
-        <div class="card" style="width:100%; text-align:left">
-          <strong>Quick Booking:</strong>
-          <div style="display:flex; gap:8px; margin-top:8px">
-            <input type="tel" placeholder="Phone" style="flex:1; padding:10px; border-radius:8px; background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--text)">
-            <button class="btn-gold">Call</button>
-          </div>
+        <div >
+<button id="learning"> Learn Tattoo</button>
+        </div>
         </div>
       </div>
     </section>
@@ -200,206 +185,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-=======
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Studio Name — Tattoo & Courses</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="home.css">
-</head>
-<body>
-
-  <!-- HEADER -->
-  <header class="header">
-    <div class="nav">
-      <div class="logo">
-        <img src="logo-placeholder.png" alt="logo">
-        <div>
-          <h1>Ink & Teach</h1>
-          <div style="font-size:12px;color:var(--muted)">Home Service • Courses • Studio</div>
-        </div>
-      </div>
-
-      <nav class="menu">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#courses">Courses</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-        <a class="btn-gold" href="#booking">Book</a>
-      </nav>
-
-      <div class="burger">
-        <button aria-label="menu" style="background:none;border:none;color:var(--muted)">☰</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <main id="home">
-    <section class="hero">
-      <div class="hero-left">
-        <h2>Real-World Tattoos • Home Service • Learn from the Pros</h2>
-        <p>We bring professional tattoo artists to your home, run certified courses, and let you preview tattoos with AR. Book, learn, or try — all in one place.</p>
-        <div class="hero-ctas">
-          <a class="card btn-gold" href="#gallery">View Gallery</a>
-          <button class="card" onclick="openAR()">Try AR</button>
-        </div>
-        <div style="margin-top:14px; display:flex; gap:8px; color:var(--muted); font-size:13px">
-          <div>✅ Home Service Available</div><div>✅ Certified Trainers</div><div>✅ Safe Aftercare</div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <img src="studio-sample.jpg" alt="studio" class="studio-image">
-        <div class="card" style="width:100%; text-align:left">
-          <strong>Quick Booking:</strong>
-          <div style="display:flex; gap:8px; margin-top:8px">
-            <input type="tel" placeholder="Phone" style="flex:1; padding:10px; border-radius:8px; background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--text)">
-            <button class="btn-gold">Call</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tattoo Types -->
-    <section id="types" class="types fade-up">
-      <div class="type-card hover-glow">
-        <h4>Traditional</h4>
-        <p>Bold lines and classic style — perfect for timeless pieces.</p>
-      </div>
-      <div class="type-card hover-glow">
-        <h4>Realism</h4>
-        <p>Photorealistic portraits and objects with high detail.</p>
-      </div>
-      <div class="type-card hover-glow">
-        <h4>Watercolor</h4>
-        <p>Brush-like, soft colors and dreamy blends.</p>
-      </div>
-      <div class="type-card hover-glow">
-        <h4>Tribal</h4>
-        <p>Bold geometric patterns and cultural designs.</p>
-      </div>
-    </section>
-
-    <!-- Gallery -->
-    <section id="gallery" class="gallery-wrap fade-up">
-      <h3 style="font-family:Poppins;margin:0 0 12px">Featured Work</h3>
-      <div class="masonry" id="masonry">
-        <img src="g1.jpg" alt="tattoo">
-        <img src="g2.jpg" alt="tattoo">
-        <img src="g3.jpg" alt="tattoo">
-        <img src="g4.jpg" alt="tattoo">
-        <img src="g5.jpg" alt="tattoo">
-        <img src="g6.jpg" alt="tattoo">
-      </div>
-    </section>
-
-    <!-- Precautions -->
-    <section class="precautions fade-up">
-      <div class="card">
-        <h3 style="margin-top:0; font-family:Poppins">Aftercare & Precautions</h3>
-        <ul>
-          <li>Avoid direct sunlight for 2 weeks.</li>
-          <li>Keep the area clean and moisturized with recommended ointment.</li>
-          <li>Do not pick scabs — let them fall naturally.</li>
-          <li>Avoid swimming or soaking for at least 2 weeks.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3 style="margin-top:0; font-family:Poppins">What to do if irritation occurs</h3>
-        <p style="color:var(--muted)">Mild redness and swelling is normal. For severe pain, pus, or fever — contact the studio immediately.</p>
-      </div>
-    </section>
-
-    <!-- AR Try-on -->
-    <section id="ar" class="ar-section fade-up">
-      <div class="ar-card">
-        <h3 style="margin-top:0; font-family:Poppins">Try Tattoo with Camera</h3>
-        <p style="color:var(--muted); margin-bottom:8px">Open camera, choose a design, drag & resize it to try on your skin (prototype).</p>
-
-        <div style="position:relative;">
-          <video id="camera-preview" autoplay playsinline></video>
-          <img id="overlay" class="overlay-tattoo" src="overlay-sample.png" alt="tattoo" style="display:none">
-        </div>
-
-        <div class="ar-controls">
-          <select id="tattoo-select">
-            <option value="overlay-sample.png">Design 1</option>
-            <option value="overlay-sample2.png">Design 2</option>
-            <option value="overlay-sample3.png">Design 3</option>
-          </select>
-          <button onclick="toggleCamera()" class="card">Toggle Camera</button>
-          <button onclick="resetOverlay()" class="card">Reset</button>
-        </div>
-        <small style="color:var(--muted)">Note: This is a simple prototype. For robust tracking use AR SDK (AR.js / 8th Wall).</small>
-      </div>
-    </section>
-
-    <!-- Booking -->
-    <section id="booking" class="booking fade-up">
-      <div class="card">
-        <h3 style="margin-top:0; font-family:Poppins">Book an Appointment</h3>
-        <form id="booking-form" onsubmit="submitBooking(event)">
-          <label>Name</label>
-          <input required name="name" placeholder="Your name">
-          <label>Phone</label>
-          <input required name="phone" placeholder="+91 9xxxx"/>
-          <label>Service</label>
-          <select name="service">
-            <option>Home Service</option>
-            <option>Studio Service</option>
-            <option>Training Course</option>
-          </select>
-          <label>Preferred Date & Time</label>
-          <input type="datetime-local" name="datetime" required>
-          <div style="display:flex; gap:8px; margin-top:10px">
-            <button class="btn-gold" type="submit">Request Booking</button>
-            <button type="button" class="card" onclick="clearForm()">Clear</button>
-          </div>
-        </form>
-        <div id="booking-msg" style="margin-top:10px;color:var(--muted)"></div>
-      </div>
-
-      <div class="card">
-        <h3 style="margin-top:0; font-family:Poppins">Quick Info</h3>
-        <p style="color:var(--muted)">Home service is available across city X. Trainers offer beginner to advanced courses — contact for schedules.</p>
-        <div style="margin-top:8px; display:flex; gap:8px">
-          <a class="card" href="#contact">Contact</a>
-          <a class="btn-gold" href="#courses">View Courses</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div style="flex:1 1 240px">
-        <h4 style="margin:0;font-family:Poppins;color:var(--gold)">Ink & Teach</h4>
-        <p style="color:var(--muted); margin-top:8px">Home service • Training Courses • Studio</p>
-      </div>
-      <div style="flex:1 1 240px">
-        <strong style="color:var(--muted)">Contact</strong>
-        <div style="color:var(--muted); margin-top:8px">Phone: +91-XXXXXXXXXX <br> Email: studio@example.com</div>
-      </div>
-      <div style="flex:1 1 240px">
-        <strong style="color:var(--muted)">Quick Links</strong>
-        <div style="margin-top:8px"><a href="#gallery">Gallery</a> • <a href="#courses">Courses</a> • <a href="#booking">Book</a></div>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top:18px; color:var(--muted); font-size:13px">© <span id="year"></span> Ink & Teach • All rights reserved</div>
-  </footer>
-
-  <!-- JS -->
-  <script src="script.js"></script>
-</body>
-</html>
->>>>>>> 7039f5e6433d576b9eec9c106e880a25b7ba44b8
