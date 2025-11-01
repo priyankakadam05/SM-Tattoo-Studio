@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - SM Tattoo Studio</title>
+    <title>Gallery - SM Tattoo Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -20,9 +20,9 @@
             
             <nav class="nav">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link active">About</a>
+                <a href="about.html" class="nav-link">About</a>
                 <a href="service.html" class="nav-link">Services</a>
-                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="gallery.html" class="nav-link active">Gallery</a>
                 <a href="contact.html" class="nav-link">Contact</a>
             </nav>
             
@@ -77,146 +77,158 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-title">About SM Tattoo Studio</h1>
-                    <p class="hero-subtitle">Where Art Meets Skin - A legacy of excellence in tattoo artistry since 2015</p>
+                    <h1 class="hero-title">Our Gallery</h1>
+                    <p class="hero-subtitle">Explore our portfolio of exceptional tattoo artistry across various styles and techniques</p>
                 </div>
             </div>
         </section>
 
-        <!-- Our Story Section -->
+        <!-- Gallery Filters -->
         <section class="section">
             <div class="container">
-                <div class="about-teaser">
-                    <div class="about-image">
-                        <img src="placeholder-founder.jpg" alt="Elena Voronov - Founder of SM Tattoo Studio" loading="lazy">
-                    </div>
-                    
-                    <div class="about-content">
-                        <h2>Our Story</h2>
-                        <p>Founded in 2015 by visionary artist <strong style="color: var(--accent);">Elena Voronov</strong>, SM Tattoo Studio emerged from a simple belief: <em>"tattoos are not just ink on skin but expressions of soul."</em></p>
-                        <p>What began as a small studio in Worli, Mumbai, has grown into a sanctuary for those seeking meaningful body art. Our journey reflects our commitment to <strong style="color: var(--accent);">Excellence in Artistry</strong> and our <strong style="color: var(--accent);">Client Centered Approach</strong>.</p>
-                        
-                        <div class="about-highlights">
-                            <div class="highlight-item">
-                                <svg class="highlight-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                                <span>Over 8 years of artistic excellence</span>
-                            </div>
-                            <div class="highlight-item">
-                                <svg class="highlight-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                                <span>5000+ satisfied clients</span>
-                            </div>
-                            <div class="highlight-item">
-                                <svg class="highlight-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                                <span>Award-winning studio</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="realism">Realism</button>
+                    <button class="filter-btn" data-filter="watercolor">Watercolor</button>
+                    <button class="filter-btn" data-filter="portrait">Portrait</button>
+                    <button class="filter-btn" data-filter="geometric">Geometric</button>
+                    <button class="filter-btn" data-filter="traditional">Traditional</button>
+                    <button class="filter-btn" data-filter="cover-ups">Cover-ups</button>
                 </div>
-            </div>
-        </section>
-
-        <!-- Our Journey Section -->
-        <section class="section" style="background-color: var(--surface);">
-            <div class="container">
-                <h2 class="section-title">Our Journey</h2>
-                <p class="section-subtitle">Milestones that shaped our studio's legacy</p>
                 
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-year">2015</div>
-                        <div class="timeline-content">
-                            <h3>Studio Founded</h3>
-                            <p>SM Tattoo Studio opens its doors in Worli, Mumbai, with a vision to redefine tattoo artistry.</p>
+                <!-- Masonry Gallery Grid -->
+                <div class="masonry-grid" id="gallery-grid">
+                    <!-- Realism Tattoos -->
+                    <div class="gallery-item" data-category="realism">
+                        <img src="placeholder-tattoo1.jpg" alt="Hyper-realistic lion tattoo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-type">Realism</div>
+                            <div class="gallery-artist">By Marcus Chen</div>
+                            <div class="gallery-actions">
+                                <button class="gallery-action" aria-label="Zoom">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                </button>
+                                <button class="gallery-action" aria-label="Info">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
-                        <div class="timeline-year">2017</div>
-                        <div class="timeline-content">
-                            <h3>First Award</h3>
-                            <p>Received "Best New Studio" at the Mumbai Art & Ink Festival, recognizing our innovative approach.</p>
+                    <!-- Watercolor Tattoos -->
+                    <div class="gallery-item" data-category="watercolor">
+                        <img src="placeholder-tattoo2.jpg" alt="Watercolor floral tattoo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-type">Watercolor</div>
+                            <div class="gallery-artist">By Sophia Laurent</div>
+                            <div class="gallery-actions">
+                                <button class="gallery-action" aria-label="Zoom">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                </button>
+                                <button class="gallery-action" aria-label="Info">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
-                        <div class="timeline-year">2019</div>
-                        <div class="timeline-content">
-                            <h3>Team Expanded</h3>
-                            <p>Welcomed three new master artists, expanding our expertise across multiple tattoo styles.</p>
+                    <!-- Traditional Tattoos -->
+                    <div class="gallery-item" data-category="traditional">
+                        <img src="placeholder-tattoo3.jpg" alt="Japanese traditional dragon tattoo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-type">Traditional</div>
+                            <div class="gallery-artist">By Isabella Rodriguez</div>
+                            <div class="gallery-actions">
+                                <button class="gallery-action" aria-label="Zoom">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                </button>
+                                <button class="gallery-action" aria-label="Info">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
-                        <div class="timeline-year">2022</div>
-                        <div class="timeline-content">
-                            <h3>Home Service Launch</h3>
-                            <p>Introduced premium home tattoo services, bringing our artistry directly to clients.</p>
+                    <!-- Geometric Tattoos -->
+                    <div class="gallery-item" data-category="geometric">
+                        <img src="placeholder-tattoo4.jpg" alt="Geometric mandala tattoo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-type">Geometric</div>
+                            <div class="gallery-artist">By Kai Thompson</div>
+                            <div class="gallery-actions">
+                                <button class="gallery-action" aria-label="Zoom">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                </button>
+                                <button class="gallery-action" aria-label="Info">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Portrait Tattoos -->
+                    <div class="gallery-item" data-category="portrait">
+                        <img src="placeholder-tattoo5.jpg" alt="Realistic portrait tattoo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-type">Portrait</div>
+                            <div class="gallery-artist">By Marcus Chen</div>
+                            <div class="gallery-actions">
+                                <button class="gallery-action" aria-label="Zoom">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                </button>
+                                <button class="gallery-action" aria-label="Info">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cover-up Tattoos -->
+                    <div class="gallery-item" data-category="cover-ups">
+                        <img src="placeholder-tattoo6.jpg" alt="Cover-up tattoo transformation" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-type">Cover-up</div>
+                            <div class="gallery-artist">By Team</div>
+                            <div class="gallery-actions">
+                                <button class="gallery-action" aria-label="Zoom">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                </button>
+                                <button class="gallery-action" aria-label="Info">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Our Artists Section -->
-        <section class="section">
-            <div class="container">
-                <h2 class="section-title">Meet Our Artists</h2>
-                <p class="section-subtitle">The talented artists behind SM Tattoo Studio's exceptional work</p>
                 
-                <div class="artists-grid">
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="placeholder-artist1.jpg" alt="Marcus Chen - Realism & Portraits" loading="lazy">
-                        </div>
-                        <h3 class="artist-name">Marcus Chen</h3>
-                        <p class="artist-specialty">Realism & Portraits</p>
-                        <p class="artist-bio">With over 12 years of experience, Marcus specializes in hyper-realistic tattoos that capture every detail.</p>
-                    </div>
-                    
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="placeholder-artist2.jpg" alt="Isabella Rodriguez - Japanese Traditional" loading="lazy">
-                        </div>
-                        <h3 class="artist-name">Isabella Rodriguez</h3>
-                        <p class="artist-specialty">Japanese Traditional</p>
-                        <p class="artist-bio">Trained in Japan, Isabella brings authentic Irezumi techniques to every traditional piece.</p>
-                    </div>
-                    
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="placeholder-artist3.jpg" alt="Kai Thompson - Geometric & Minimalist" loading="lazy">
-                        </div>
-                        <h3 class="artist-name">Kai Thompson</h3>
-                        <p class="artist-specialty">Geometric & Minimalist</p>
-                        <p class="artist-bio">Kai's precision and eye for symmetry create stunning geometric patterns and minimalist designs.</p>
-                    </div>
-                    
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="placeholder-artist4.jpg" alt="Sophia Laurent - Watercolor & Abstract" loading="lazy">
-                        </div>
-                        <h3 class="artist-name">Sophia Laurent</h3>
-                        <p class="artist-specialty">Watercolor & Abstract</p>
-                        <p class="artist-bio">Sophia's background in fine arts brings a painterly quality to her vibrant watercolor tattoos.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="section" style="background: linear-gradient(135deg, var(--accent) 0%, var(--bg) 100%);">
-            <div class="container">
-                <div class="cta-content" style="text-align: center; color: var(--white);">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Begin Your Journey?</h2>
-                    <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">Transform your vision into lasting art with our master artists.</p>
-                    <button class="btn" style="background: var(--bg); color: var(--white); border: 2px solid var(--white);">
-                        Book Your First Ink Experience Today
+                <!-- Load More Button -->
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button class="btn btn-secondary" id="load-more">
+                        Load More
                     </button>
                 </div>
             </div>
@@ -279,6 +291,32 @@
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+            <img class="lightbox-image" id="lightbox-image" src="" alt="">
+            <div class="lightbox-info">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-description"></p>
+            </div>
+            <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
