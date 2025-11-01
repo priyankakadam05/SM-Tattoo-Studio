@@ -500,7 +500,7 @@ if (lightbox) {
         lightboxImage.src = image.src;
         lightboxImage.alt = image.alt;
         lightboxTitle.textContent = image.type;
-        lightboxDescription.textContent = By ${image.artist};
+        lightboxDescription.textContent = By$;{image.artist};
         
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -673,7 +673,7 @@ if (reviewsTrack && carouselDots.length > 0) {
     
     function goToSlide(index) {
         currentSlide = index;
-        reviewsTrack.style.transform = translateX(-${currentSlide * 100}%);
+reviewsTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
         
         // Update dots
         carouselDots.forEach((dot, i) => {
@@ -818,7 +818,7 @@ document.querySelectorAll('.service-card').forEach(card => {
         const angleY = (x - centerX) / 25;
         const angleX = (centerY - y) / 25;
         
-        card.style.transform = perspective(1000 px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px);
+        card.style.transform = perspective(1000, px) ;rotateX($,{angleX},deg) ;rotateY($,{angleY},deg) ,translateZ(10,px);
     });
     
     card.addEventListener('mouseleave', () => {
