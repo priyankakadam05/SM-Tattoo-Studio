@@ -150,14 +150,12 @@ img {
 
 /* Header Styles */
 .header {
-    position: fixed;
+    position: absolute; /* not fixed, but still overlaps hero */
     top: 0;
     left: 0;
     width: 100%;
+    background-color: transparent;
     z-index: 1000;
-    background-color: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(10px);
-    transition: var(--transition);
 }
 
 .header.scrolled {
