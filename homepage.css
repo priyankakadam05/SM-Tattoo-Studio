@@ -446,35 +446,61 @@ img {
     font-size: 1.2rem;
     color: var(--accent-gold);
 }
-
-/* Aftercare Section */
-.aftercare {
-    background-color: var(--bg-card);
+.text-center {
+  text-align: center;
+  margin-top: 20px;
 }
 
-.aftercare-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+/* Aftercare Preview Section */
+.aftercare-preview {
+  background: linear-gradient(135deg, #0a0a0a, #1c1c1c);
+  position: relative;
+  overflow: hidden;
 }
 
-.aftercare-item {
-    text-align: center;
-    padding: 30px 20px;
+.aftercare-preview::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('tattoo-bg.jpg') center/cover no-repeat; /* replace with your bg image */
+  opacity: 0.15;
 }
 
-.aftercare-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
+.aftercare-preview-box {
+  position: relative;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(229, 173, 0, 0.3);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(229, 173, 0, 0.1);
+  max-width: 600px;
+  margin: 30px auto 0;
+  transition: all 0.3s ease;
 }
 
-.aftercare-item h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+.aftercare-preview-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 35px rgba(229, 173, 0, 0.25);
 }
 
-.aftercare-item p {
-    color: var(--text-gray);
+.aftercare-text p {
+  color: #b0b0b0;
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.aftercare-preview .btn-primary {
+  background-color: var(--accent-gold);
+  color: var(--bg-dark);
+  border-color: var(--accent-gold);
+  transition: all 0.3s ease;
+}
+
+.aftercare-preview .btn-primary:hover {
+  background-color: var(--accent-gold-light);
+  transform: scale(1.05);
 }
 
 /* AR Feature Section */
@@ -535,7 +561,7 @@ img {
     border: 2px dashed var(--accent-gold);
 }
 
-/* Booking Section */
+/* Booking Section 
 .booking {
     background-color: var(--bg-card);
 }
@@ -601,6 +627,7 @@ img {
     padding: 0 5px;
     color: var(--accent-gold);
 }
+*/
 
 /* Testimonials Section */
 .testimonials-grid {
@@ -714,7 +741,21 @@ img {
     color: var(--text-gray);
     font-size: 0.9rem;
 }
+.footer .social-icons {
+  margin-top: 15px;
+}
 
+.footer .social-icons a {
+  color: var(--accent-gold);
+  margin: 0 10px;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: var(--accent-gold-light);
+  transform: scale(1.2);
+}
 /* WhatsApp Float Button */
 .whatsapp-float {
     position: fixed;
