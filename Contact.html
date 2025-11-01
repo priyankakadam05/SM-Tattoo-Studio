@@ -1,298 +1,223 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SM Tattoo - Contact Page</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>SM Tattoo Studio - Contact Us</title>
+    <link rel="stylesheet" href="contact.css">
 </head>
 <body>
-    <header>
-        <div class="container header-content">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
             <div class="logo">
-                <img src="logo.png" alt="SM Tattoo Logo">
-                <span>SM TATTOO</span>
-                <p>Studio</p>
+                <h1>SM TATTOO STUDIO</h1>
             </div>
-            <nav>
-                <ul>
+            <nav class="nav">
+                <ul class="nav-list">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Courses</a></li>
                     <li><a href="#" class="active">Contact</a></li>
                 </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </nav>
-            <div class="share-button">
-                <i class="fas fa-share-alt"></i> Share
-            </div>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1>CONTACT US</h1>
-                <h3>Get Inked With SM Tattoo Studio</h3>
-                <p>Have a tattoo idea or want to book an appointment? Let's talk! Share your vision, and we'll <br> create something unforgettable for you.</p>
-            </div>
-        </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">CONTACT US</h1>
+            <p class="hero-subtitle">Get in touch with our studio for consultations and appointments</p>
+        </div>
+    </section>
 
-        <section class="contact-section container">
-            <div class="send-message">
-                <h2>Send Us a Message</h2>
-                <p>Fill out the form below and we'll respond within 24 hours.</p>
-                <form>
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" placeholder="Your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" rows="5" placeholder="Type your message"></textarea>
-                    </div>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-
-            <div class="studio-information">
-                <h2>Studio Information</h2>
-                <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <h3>Visit Us</h3>
-                        <p>SM Tattoo Studio <br> Worli, Mumbai - 400018</p>
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h2>Send Us a Message</h2>
+                    <p class="form-description">Fill out the form below and we'll respond within 24 hours.</p>
+                    
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" id="full-name" placeholder="John Dee" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+91 98765 43210">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Select Service</label>
+                            <select id="service" required>
+                                <option value="" disabled selected>Choose a service</option>
+                                <option value="tattoo">Tattoo Design</option>
+                                <option value="piercing">Body Piercing</option>
+                                <option value="cover-up">Tattoo Cover-up</option>
+                                <option value="consultation">Consultation</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message / Tattoo Idea</label>
+                            <textarea id="message" placeholder="Tell us about your tattoo idea or what you're looking for..." rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+                
+                <!-- Studio Information -->
+                <div class="studio-info">
+                    <div class="info-card">
+                        <h2>Studio Information</h2>
+                        
+                        <div class="info-item">
+                            <h3>Visit Us</h3>
+                            <p>SM Tattoo Studio<br>Worli, Mumbai - 400018</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h3>Working Hours</h3>
+                            <p>Mon - Sun: 10:00 AM - 9:00 PM</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h3>Email</h3>
+                            <p>contact@smtattoostudio.com</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h3>Phone</h3>
+                            <p>+91 98765 43210</p>
+                        </div>
+                        
+                        <div class="social-icons">
+                            <h3>Follow Our Work</h3>
+                            <div class="icons">
+                                <a href="#" class="social-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2C6.477 2 2 6.477 2 12C2 16.991 5.657 21.128 10.438 21.879V14.89H7.898V12H10.438V9.797C10.438 7.291 11.93 5.907 14.215 5.907C15.309 5.907 16.453 6.102 16.453 6.102V8.562H15.193C13.95 8.562 13.563 9.333 13.563 10.124V12H16.336L15.893 14.89H13.563V21.879C18.343 21.129 22 16.99 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2C6.477 2 2 6.477 2 12C2 16.991 5.657 21.128 10.438 21.879V14.89H7.898V12H10.438V9.797C10.438 7.291 11.93 5.907 14.215 5.907C15.309 5.907 16.453 6.102 16.453 6.102V8.562H15.193C13.95 8.562 13.563 9.333 13.563 10.124V12H16.336L15.893 14.89H13.563V21.879C18.343 21.129 22 16.99 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" fill="currentColor"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h3>Working Hours</h3>
-                        <p>Mon - Sun: 10:00 AM - 9:00 PM</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h3>Email</h3>
-                        <p>contact@smtattoostudio.com</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <div>
-                        <h3>Phone</h3>
-                        <p>+91 98765 43210</p>
-                    </div>
-                </div>
-
-                <h3>Follow Our Work</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-        </section>
-
-        <section class="map-section">
-            <h2>Find Us on Map</h2>
-            <p>Located in Worli, Mumbai — where artistry meets accessibility.</p>
-            <div id="map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15083.565868666521!2d72.8130836!3d19.0150926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c997b63f5383%3A0x7b1d4c2d3a3f5f3e!2sWorli%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">
-                <img src="logo.png" alt="SM Tattoo Logo">
-                <span>SM TATTOO</span>
-                <p>Where art meets skin. Premium tattoo artistry in Worli, Mumbai. <br> Experience luxury ink and creative confidence.</p>
-            </div>
-            <div class="quick-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#Home">Home</a></li>
-                    <li><a href="#About">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#Courses">Courses</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="stay-connected">
-                <h3>Stay Connected</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-                <p>contact@smtattoostudio.com</p>
-                <p>+91 98765 43210</p>
             </div>
         </div>
-        <div class="copyright">
-            <p>© 2023 SM Tattoo Studio. All Rights Reserved.</p>
-            <p>Crafted with ❤️ by E-Mumbai</p>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2>Find Us on Map</h2>
+            <p class="map-description">Located in Worli, Mumbai — where artistry meets accessibility!</p>
+            
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <div class="map-placeholder">
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.415013278093!2d72.8173903757975!3d19.01789585387316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cedf75667a4b%3A0xd8ddadfbd6784f04!2sWorli%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1730312600000!5m2!1sen!2sin" 
+        width="100%" 
+        height="400" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>SIX TATTOO</h2>
+                    <p>Where art meets skin. Premium tattoo artistry in Worli, Mumbai. Experience luxury ink and creative confidence.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Stay Connected</h3>
+                    <p>contact@smtattoostudio.com</p>
+                    <p>+91 98765 43210</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.477 2 2 6.477 2 12C2 16.991 5.657 21.128 10.438 21.879V14.89H7.898V12H10.438V9.797C10.438 7.291 11.93 5.907 14.215 5.907C15.309 5.907 16.453 6.102 16.453 6.102V8.562H15.193C13.95 8.562 13.563 9.333 13.563 10.124V12H16.336L15.893 14.89H13.563V21.879C18.343 21.129 22 16.99 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.477 2 2 6.477 2 12C2 16.991 5.657 21.128 10.438 21.879V14.89H7.898V12H10.438V9.797C10.438 7.291 11.93 5.907 14.215 5.907C15.309 5.907 16.453 6.102 16.453 6.102V8.562H15.193C13.95 8.562 13.563 9.333 13.563 10.124V12H16.336L15.893 14.89H13.563V21.879C18.343 21.129 22 16.99 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="copyright">
+                    <p>© 2025 SM Tattoo Studio. All rights reserved.</p>
+                    <p>Crafted with ❤️ in Mumbai</p>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Success Toast -->
+    <div id="toast" class="toast">
+        <p>Your message has been sent successfully!</p>
+    </div>
+
+    <script src="contact.js"></script>
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SM Tattoo - Contact Page</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="logo.png" alt="SM Tattoo Logo">
-                <span>SM TATTOO</span>
-                <p>Studio</p>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#" class="active">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="share-button">
-                <i class="fas fa-share-alt"></i> Share
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1>CONTACT US</h1>
-                <h3>Get Inked With SM Tattoo Studio</h3>
-                <p>Have a tattoo idea or want to book an appointment? Let's talk! Share your vision, and we'll <br> create something unforgettable for you.</p>
-            </div>
-        </section>
-
-        <section class="contact-section container">
-            <div class="send-message">
-                <h2>Send Us a Message</h2>
-                <p>Fill out the form below and we'll respond within 24 hours.</p>
-                <form>
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" placeholder="Your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" rows="5" placeholder="Type your message"></textarea>
-                    </div>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-
-            <div class="studio-information">
-                <h2>Studio Information</h2>
-                <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <h3>Visit Us</h3>
-                        <p>SM Tattoo Studio <br> Worli, Mumbai - 400018</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h3>Working Hours</h3>
-                        <p>Mon - Sun: 10:00 AM - 9:00 PM</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h3>Email</h3>
-                        <p>contact@smtattoostudio.com</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <div>
-                        <h3>Phone</h3>
-                        <p>+91 98765 43210</p>
-                    </div>
-                </div>
-
-                <h3>Follow Our Work</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-        </section>
-
-        <section class="map-section">
-            <h2>Find Us on Map</h2>
-            <p>Located in Worli, Mumbai — where artistry meets accessibility.</p>
-            <div id="map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15083.565868666521!2d72.8130836!3d19.0150926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c997b63f5383%3A0x7b1d4c2d3a3f5f3e!2sWorli%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">
-                <img src="logo.png" alt="SM Tattoo Logo">
-                <span>SM TATTOO</span>
-                <p>Where art meets skin. Premium tattoo artistry in Worli, Mumbai. <br> Experience luxury ink and creative confidence.</p>
-            </div>
-            <div class="quick-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#Home">Home</a></li>
-                    <li><a href="#About">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#Courses">Courses</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="stay-connected">
-                <h3>Stay Connected</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-                <p>contact@smtattoostudio.com</p>
-                <p>+91 98765 43210</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>© 2023 SM Tattoo Studio. All Rights Reserved.</p>
-            <p>Crafted with ❤️ by E-Mumbai</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
->>>>>>> 7039f5e6433d576b9eec9c106e880a25b7ba44b8
 </html>
