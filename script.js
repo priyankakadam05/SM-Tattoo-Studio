@@ -281,7 +281,157 @@ if (bookingForm) {
     });
 }
 
+// Enhanced contact form handler with better error handling
 if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        if (validateForm(contactForm)) {
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> Sending...';
+            submitBtn.disabled = true;
+            
+            // Add honeypot field dynamically
+            const honeypot = document.createElement('input');
+            honeypot.type = 'text';
+            honeypot.name = 'website';
+            honeypot.style.display = 'none';
+            honeypot.value = ''; // Leave empty for real users
+            contactForm.appendChild(honeypot);
+            
+            try {
+                const formData = {
+                    name: document.getElementById('contact-name').value.trim(),
+                    email: document.getElementById('contact-email').value.trim(),
+                    phone: document.getElementById('contact-phone').value.trim(),
+                    service: document.getElementById('contact-service').value,
+                    message: document.getElementById('contact-message').value.trim(),
+                    website: honeypot.value // Honeypot field
+                };
+                
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccessMessage(result.message);
+                    contactForm.reset();
+                    
+                    // Log success for analytics
+                    console.log('Contact form submitted successfully:', result.submissionId);
+                } else {
+                    showErrorMessage(result.message || 'There was an error sending your message. Please try again.');
+                }
+                
+            } catch (error) {
+                console.error('Contact form error:', error);
+                showErrorMessage('Network error. Please check your connection and try again.');
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Remove honeypot field
+                contactForm.removeChild(honeypot);
+            }
+        } else {
+            showErrorMessage('Please fill in all required fields correctly.');
+        }
+    });
+}
+
+// Enhanced success message function
+function showSuccessMessage(message) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #10B981;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+        max-width: 400px;
+    `;
+    toast.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        toast.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                document.body.removeChild(toast);
+            }
+        }, 300);
+    }, 5000);
+}
+
+// Error message function
+function showErrorMessage(message) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #EF4444;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+        max-width: 400px;
+    `;
+    toast.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        toast.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                document.body.removeChild(toast);
+            }
+        }, 300);
+    }, 5000);
+}
+/*if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -299,7 +449,7 @@ if (contactForm) {
             alert('Please fill in all required fields correctly.');
         }
     });
-}
+}*/
 
 // Reviews carousel
 const reviewsTrack = document.getElementById('reviews-track');
