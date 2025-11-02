@@ -561,7 +561,15 @@ img {
     border: 2px dashed var(--accent-gold);
 }
 
-/* Booking Section 
+/* Booking Section */
+.booking-form button {
+    grid-column: 1 / -1; /* make button span both columns */
+    justify-self: center; /* center horizontally */
+    width: 400px; /* natural button width */
+    padding: 18px 44px; /* make it look balanced */
+    font-size: 20px;
+}
+
 .booking {
     background-color: var(--bg-card);
 }
@@ -627,7 +635,7 @@ img {
     padding: 0 5px;
     color: var(--accent-gold);
 }
-*/
+
 
 /* Testimonials Section */
 .testimonials-grid {
@@ -1874,6 +1882,23 @@ img {
 }
 
 /* Services Page Specific Styles */
+.section .container {
+    text-align: center;
+}
+
+.section-title {
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto 1.5rem auto;
+    position: relative;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin: 0 auto 1.6rem auto;
+    max-width: 700px;
+}
+
 .services-detailed-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1924,6 +1949,7 @@ img {
     position: absolute;
     left: 0;
 }
+
 
 .pricing-grid {
     display: grid;
