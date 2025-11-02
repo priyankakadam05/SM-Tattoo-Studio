@@ -1367,14 +1367,9 @@ img {
     color: var(--accent);
 }
 
-.artists-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-}
-
 .artist-card {
     text-align: center;
+    align-self: center;
 }
 
 
