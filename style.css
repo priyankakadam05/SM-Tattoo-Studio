@@ -106,6 +106,120 @@ img {
     max-width: 600px;
     margin: 0 auto 3rem;
 }
+/* Header Styles */
+.header {
+    position: absolute; /* not fixed, but still overlaps hero */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+.header.scrolled {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    letter-spacing: 1px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    position: relative;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gold);
+    transition: var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent-gold);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--text-light);
+    position: relative;
+    transition: var(--transition);
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background: var(--text-light);
+    transition: var(--transition);
+}
+
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    top: 8px;
+}
+
+.nav-toggle.active .hamburger {
+    background: transparent;
+}
+
+.nav-toggle.active .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.nav-toggle.active .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
 
 /* Header Styles */
 .header {
@@ -124,7 +238,7 @@ img {
     backdrop-filter: blur(10px);
     padding: 12px 0;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  
 }
 
 .header--hidden {
@@ -278,6 +392,31 @@ img {
 }
 
 /* Hero Section */
+
+.hero {
+  display: flex;
+  align-items: center; /* vertical center */
+  justify-content: center; /* horizontal center */
+  min-height: 100vh; /* full screen height */
+  text-align: center;
+  background-color: #000; /* keep your dark background */
+  color: #fff;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+}
 .hero {
     min-height: 100vh;
     display: flex;
@@ -308,6 +447,87 @@ img {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+}
+.hero {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+  height: 100vh; /* full viewport height */
+  text-align: center;
+  background-color: #000; /* or your background */
+}
+
+.hero .container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  color: #fff;
+}
+
+.hero-title {
+  color: var(--accent);
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+.about-teaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  flex-wrap: wrap; /* ensures it stacks on small screens */
+}
+
+.about-image img {
+  width: 400px;
+  height: auto;
+  border-radius: 10px;
+  border: 3px solid var(--accent); /* matches your gold theme */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.about-content {
+  flex: 1;
+  color: var(--text-light);
+}
+
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.about-content p {
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+.about-highlights {
+  margin-top: 1.5rem;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #ddd;
+  margin-bottom: 0.8rem;
+}
+
+.highlight-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
 }
 
 /* About Page Specific Styles */
@@ -548,6 +768,7 @@ img {
 }
 
 /* Services Page Specific Styles */
+
 .services-detailed-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -598,6 +819,84 @@ img {
     position: absolute;
     left: 0;
 }
+
+.aftercare-section {
+  background: #0d0d0d;
+  color: #f5f5f5;
+  padding: 80px 10%;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.section-title {
+  font-size: 2.8rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  color: #aaa;
+  font-size: 1.2rem;
+  margin-bottom: 50px;
+}
+
+.aftercare-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.aftercare-card {
+  background: linear-gradient(145deg, #1a1a1a, #0b0b0b);
+  border: 1px solid #222;
+  border-radius: 15px;
+  padding: 30px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.aftercare-card i {
+  font-size: 2.5rem;
+  color: #D4AF37;
+  margin-bottom: 20px;
+}
+
+.aftercare-card h3 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.aftercare-card p {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.aftercare-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+  border-color: #D4AF37;
+}
+
+/* Scroll animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 .pricing-grid {
     display: grid;
@@ -714,6 +1013,7 @@ img {
 }
 
 /* Contact Page Specific Styles */
+
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -844,6 +1144,35 @@ img {
 .form-textarea {
     min-height: 120px;
     resize: vertical;
+}
+/* Fix overlapping dropdown text */
+.form-select {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  padding: 10px 12px !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  color: #fff !important;
+  background-color: #222 !important;
+  border: 1px solid #d4af37 !important;
+  border-radius: 4px !important;
+  appearance: auto !important; /* ensure browser default dropdown */
+  text-shadow: none !important;
+  text-transform: none !important;
+  background-image: none !important;
+}
+
+/* Fix internal text overlapping */
+.form-select::-ms-expand {
+  display: none;
+}
+
+/* Options styling */
+.form-select option {
+  color: #fff !important;
+  background-color: #222 !important;
+  text-shadow: none !important;
 }
 
 /* Footer */
@@ -1056,3 +1385,88 @@ img {
     padding: 0 5px;
     color: var(--accent-gold);
 }
+.hero-title {
+  font-size: 4rem !important;
+  font-weight: 800 !important;
+  color: #D4AF37 !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.form-group {
+  position: relative;
+}
+
+.form-label {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+/* When the user types or focuses, move label up */
+.form-input:focus + .form-label,
+.form-input:not(:placeholder-shown) + .form-label,
+.form-textarea:focus + .form-label,
+.form-textarea:not(:placeholder-shown) + .form-label {
+  top: -14px;
+  font-size: 10px;
+  color: #d4af37; /* gold shade */
+}
+
+/* Just to ensure inputs stay readable */
+.form-input,
+.form-textarea {
+  background-color: #111;
+  color: #fff;
+}
+.hero {
+  position: relative;
+  height: 100vh; /* full screen height */
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  text-align: center;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2; /* keep it above overlay or image */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-video img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* dark overlay */
+  z-index: 1;
+}
+
+.hero-title,
+.hero-subtitle,
+.hero-buttons {
+  z-index: 3;
+  color: #fff;
+}
+

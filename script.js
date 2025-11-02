@@ -1,3 +1,4 @@
+
 // script.js - Complete JavaScript for SM Tattoo Studio
 
 // Header scroll behavior
@@ -612,4 +613,19 @@ document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
     });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".fade-in");
+
+  const revealOnScroll = () => {
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        card.classList.add("visible");
+      }
+    });
+  };
+
+  revealOnScroll();
+  window.addEventListener("scroll", revealOnScroll);
 });

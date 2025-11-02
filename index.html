@@ -154,15 +154,23 @@ img {
     transform: translateY(-2px);
 }
 
-.btn-outline {
-    background-color: transparent;
-    color: var(--accent-gold);
-    border-color: var(--accent-gold);
+.btn.btn-outline {
+  background-color: transparent !important;
+  color: var(--accent-gold) !important;
+  border: 2px solid var(--accent-gold) !important;
+  border-radius: 4px;
+  padding: 12px 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-.btn-outline:hover {
-    background-color: rgba(229, 173, 0, 0.1);
-    transform: translateY(-2px);
+.btn.btn-outline:hover {
+  background-color: var(--accent-gold) !important;
+  color: #000 !important; /* black text when golden background */
+  transform: scale(1.05);
 }
 
 .full-width {
@@ -952,14 +960,14 @@ img {
                         <li><a href="index.html" class="nav-link active">Home</a></li>
                         <li><a href="about.html" class="nav-link">About</a></li>
                         <li><a href="service.html" class="nav-link">Services</a></li>
-                        <li><a href="gallary.html" class="nav-link">Gallery</a></li>
+                        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
                         <li><a href="contact.html" class="nav-link">Contact</a></li>
                     </ul>
                     <button class="nav-toggle" aria-label="Toggle navigation">
                         <span class="hamburger"></span>
                     </button>
                 </nav>
-                <a href="#booking" class="btn btn-primary">Book Appointment</a>
+                <a target="_blank" href="service.html#booking" class="btn btn-primary">Book Appointment</a>
             </div>
         </div>
     </header>
@@ -975,8 +983,8 @@ img {
                 <h1 style="white-space: nowrap;" class="hero-title fade-in"><span style="color:#d4af37; font-weight: 700; text-shadow: 0 0 5px #a67c00;">Ink</span> Your Story with Style</h1>
                 <p  style="white-space: nowrap;" class="hero-subtitle fade-in">Professional Tattoo Artist | Home Service | Training Classes in Mumbai</p>
                 <div class="hero-buttons fade-in">
-                    <a href="#booking" class="btn btn-primary">Book Now</a>
-                    <a href="gallery.html" class="btn btn-secondary">View Gallery</a>
+                    <a target="_blank" href="service.html#booking" class="btn btn-primary">Book Now</a>
+                    <a target="_blank" href="gallery.html" class="btn btn-secondary">View Gallery</a>
                 </div>
             </div>
         </div>
@@ -995,8 +1003,8 @@ img {
                 </div>
                 <div class="about-text">
                     <h3>Welcome to SM Tattoo Studio</h3>
-                    <p>Welcome to SM Tattoo Studio, where art meets soul and every design tells a story that lasts forever.We believe tattoos are more than just ink on skin — they’re expressions of identity, emotion, and personal journeys. Our mission is to turn your thoughts and feelings into living art that you’ll proudly wear for life.</p>
-                    <a href="about.html" class="btn btn-outline">Explore About Studio</a>
+                    <p>Our story is born from a deep love for art, emotion, and self-expression. Every tattoo we create carries a heartbeat — a memory, a moment, a feeling that words can’t always express. What began as a small passion turned into a journey of connecting souls through art. We believe tattoos are not just designs; they are emotions that live on your skin forever. Every line, every shade, and every symbol tells your unique story — one that deserves to be remembered beautifully.</p>
+                    <a target="_blank" href="about.html" class="btn btn-outline">Explore About Studio</a>
                 </div>
             </div>
         </div>
@@ -1066,7 +1074,7 @@ img {
 
     <!-- ✅ Move this div below the gallery -->
     <div class="text-center">
-      <a href="gallery.html" class="btn btn-outline">View Full Gallery</a>
+      <a target="_blank" href="gallery.html" class="btn btn-outline">View Full Gallery</a>
     </div>
   </div>
 </section>
@@ -1084,70 +1092,14 @@ img {
         <p>
           Keep your tattoo vibrant and healthy. Explore our essential aftercare guide crafted by experts.
         </p>
-        <a href="aftercare.html" class="btn btn-primary">Explore Full Guide →</a>
+        <a href="service.html#aftercare-section" class="btn btn-primary">Explore Full Guide →</a>
       </div>
     </div>
   </div>
 </section>
 
-    <!-- AR Feature Section -->
-    <section class="section ar-feature">
-        <div class="container">
-            <div class="ar-content">
-                <div class="ar-text">
-                    <h2 class="section-title">Try Tattoos in Real Time</h2>
-                    <p>Use your camera to preview tattoos on your skin before inking. Our AR technology lets you visualize how different designs will look on your body.</p>
-                    <button class="btn btn-primary" id="tryArBtn">Try Now</button>
-                </div>
-                <div class="ar-placeholder">
-                    <div class="ar-demo">
-                        <p>AR Feature Preview</p>
-                        <div class="ar-screen"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section 
-    <section id="booking" class="section booking">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Book Your Appointment</h2>
-                <p class="section-subtitle">Schedule your tattoo session with our artists</p>
-            </div>
-            <form class="booking-form" id="bookingForm">
-                <div class="form-group">
-                    <input type="text" id="name" name="name" required>
-                    <label for="name">Full Name</label>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" name="email" required>
-                    <label for="email">Email Address</label>
-                </div>
-                <div class="form-group">
-                    <select id="tattooType" name="tattooType" required>
-                        <option value="" disabled selected></option>
-                        <option value="custom">Custom Tattoo</option>
-                        <option value="cover-up">Cover-Up</option>
-                        <option value="piercing">Piercing</option>
-                        <option value="home-service">Home Service</option>
-                    </select>
-                    <label for="tattooType">Tattoo Type</label>
-                </div>
-                <div class="form-group">
-                    <input type="date" id="date" name="date" required>
-                    <label for="date">Preferred Date</label>
-                </div>
-                <div class="form-group full-width">
-                    <textarea id="message" name="message" rows="4"></textarea>
-                    <label for="message">Additional Details</label>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Book Appointment</button>
-            </form>
-        </div>
-    </section>
--->
+   
+    
 
     <!-- Testimonials Section -->
     <section class="section testimonials">
@@ -1199,7 +1151,7 @@ img {
                     </div>
                     <div class="social-icons">
                         <a href="https://www.instagram.com/smtattoo_studio?igsh=MXJqd2Y0N284bjJzbg==" target="_blank" aria-label="Instagram"> <i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank" aria-label="Facebook"><i class="fa-brands fa-whatsapp"></i></a>
                         <a href="https://youtube.com/@sagarpathade-w7m?si=UFVDo5LmDyPokrF2" target="_blank" aria-label="YouTube">  <i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
