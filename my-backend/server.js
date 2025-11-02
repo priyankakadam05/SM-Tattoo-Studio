@@ -8,24 +8,57 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000; // Changed from 3000 to 4000
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../')));
+app.use(express.json());
 
-
-// MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'your-mongodb-connection-string';
+// MongoDB Connection with better error handling
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/smtattoo';
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
-.then(() => console.log('✅ Connected to MongoDB Atlas'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+.then(() => {
+    console.log('✅ Connected to MongoDB Atlas');
+    // Start server only after successful database connection
+    const server = app.listen(PORT, () => {
+        console.log(`🚀 Server running on port ${PORT}`);
+        console.log(`📍 Visit: http://localhost:${PORT}`);
+        console.log(`📊 MongoDB Status: Connected`);
+    });
+})
+.catch(err => {
+    console.error('❌ MongoDB connection error:', err.message);
+    process.exit(1); // Exit process with failure
+});
+
+// Add connection error handler
+mongoose.connection.on('error', err => {
+    console.error('🔥 MongoDB connection error:', err.message);
+});
+
+// Add disconnection handler
+mongoose.connection.on('disconnected', () => {
+    console.log('❌ MongoDB disconnected');
+});
+
+// Handle process termination
+process.on('SIGINT', async () => {
+    try {
+        await mongoose.connection.close();
+        console.log('✅ MongoDB connection closed through app termination');
+        process.exit(0);
+    } catch (err) {
+        console.error('❌ Error during MongoDB disconnect:', err);
+        process.exit(1);
+    }
+});
 
 // Contact Schema
 const contactSchema = new mongoose.Schema({
@@ -40,7 +73,7 @@ const contactSchema = new mongoose.Schema({
         required: [true, 'Email is required'],
         trim: true,
         lowercase: true,
-        match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
+        match: [/^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/, 'Please enter a valid email']
     },
     phone: {
         type: String,
@@ -236,10 +269,127 @@ app.post('/api/contact', rateLimitMiddleware, async (req, res) => {
     }
 });
 
+// Booking form endpoint
+app.post('/api/booking', rateLimitMiddleware, async (req, res) => {
+    try {
+        const { name, email, tattooType, date, time, message, website } = req.body;
+
+        // Honeypot check
+        if (website) {
+            return res.status(400).json({ success: false, message: 'Invalid submission.' });
+        }
+
+        // Basic validation
+        if (!name || !email || !tattooType || !date || !time) {
+            return res.status(400).json({ success: false, message: 'All required fields must be filled' });
+        }
+
+        // Email validate
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ success: false, message: 'Invalid email address' });
+        }
+
+        // Save to DB
+        const booking = new Booking({
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            tattooType,
+            date,
+            time,
+            message: message ? message.trim() : '',
+            ipAddress: req.ip
+        });
+
+        const saved = await booking.save();
+        console.log("✅ Booking saved:", saved._id);
+
+        // Send email to admin
+        try {
+            await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: process.env.ADMIN_EMAIL,
+                subject: 'New Tattoo Booking Request',
+                html: `
+                <h2>New Booking Request</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Tattoo Type:</strong> ${tattooType}</p>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Time:</strong> ${time}</p>
+                <p><strong>Message:</strong> ${message}</p>
+                <p><strong>ID:</strong> ${saved._id}</p>
+                `
+            });
+            console.log("✅ Booking email sent");
+        } catch (err) {
+            console.error("❌ Email error:", err);
+        }
+
+        res.json({
+            success: true,
+            message: 'Booking request received! We will confirm shortly.',
+            bookingId: saved._id
+        });
+
+    } catch (error) {
+        console.error('❌ Booking error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error. Try again later.'
+        });
+    }
+});
+
+
+// Booking Schema
+
+/*const bookingSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true
+    },
+    tattooType: {
+        type: String,
+        enum: ['custom', 'cover-up', 'piercing', 'home-service'],
+        required: true
+    },
+    date: {
+        type: String,
+        required: true
+    },
+    time: {
+        type: String,
+        required: true
+    },
+    message: {
+        type: String,
+        default: ''
+    },
+    ipAddress: {
+        type: String,
+        default: ''
+    },
+    status: {
+        type: String,
+        enum: ['new', 'confirmed', 'cancelled'],
+        default: 'new'
+    }
+}, { timestamps: true });
+
+const Booking = mongoose.model('Booking', bookingSchema);*/
+
+
 // Admin API to get all submissions (optional - for admin panel)
 app.get('/api/admin/submissions', async (req, res) => {
     try {
-        // Basic authentication (replace with proper auth in production)
         const authHeader = req.headers.authorization;
         if (!authHeader || authHeader !== `Bearer ${process.env.ADMIN_TOKEN}`) {
             return res.status(401).json({
@@ -303,8 +453,3 @@ app.use((error, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📍 Visit: http://localhost:${PORT}`);
-    console.log(`📊 MongoDB: ${mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'}`);
-});

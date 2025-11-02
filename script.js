@@ -262,26 +262,6 @@ function showSuccessMessage(message) {
     }, 4000);
 }
 
-if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (validateForm(bookingForm)) {
-            // Simulate form submission
-            const formData = new FormData(bookingForm);
-            console.log('Booking form submitted:', Object.fromEntries(formData));
-            
-            // Show success message
-            showSuccessMessage('Thank you! Your booking request has been received. We will contact you shortly.');
-            
-            // Reset form
-            bookingForm.reset();
-        } else {
-            alert('Please fill in all required fields correctly.');
-        }
-    });
-}
-
 // Enhanced contact form handler with better error handling
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -432,25 +412,7 @@ function showErrorMessage(message) {
         }, 300);
     }, 5000);
 }
-/*if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (validateForm(contactForm)) {
-            // Simulate form submission
-            const formData = new FormData(contactForm);
-            console.log('Contact form submitted:', Object.fromEntries(formData));
-            
-            // Show success message
-            showSuccessMessage('Thank you for your message! We will get back to you soon.');
-            
-            // Reset form
-            contactForm.reset();
-        } else {
-            alert('Please fill in all required fields correctly.');
-        }
-    });
-}*/
+
 
 // Reviews carousel
 const reviewsTrack = document.getElementById('reviews-track');
