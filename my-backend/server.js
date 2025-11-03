@@ -8,7 +8,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000; // Changed from 5000 to 4000
 
 // Middleware
 app.use(cors());
@@ -232,6 +232,48 @@ app.post('/api/contact', rateLimitMiddleware, async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Sorry, there was an error processing your request. Please try again later.'
+        });
+    }
+});
+
+// Contact endpoint
+app.post('/api/contact', async (req, res) => {
+    try {
+        const { name, email, phone, service, message } = req.body;
+
+        // Validate required fields
+        if (!name || !email || !message) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please fill in all required fields'
+            });
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please enter a valid email address'
+            });
+        }
+
+        // Log for debugging
+        console.log('Received contact form data:', {
+            name, email, phone, service, message
+        });
+
+        // Send success response
+        res.status(200).json({
+            success: true,
+            message: 'Message received successfully'
+        });
+
+    } catch (error) {
+        console.error('Server error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
         });
     }
 });
