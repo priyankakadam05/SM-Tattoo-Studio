@@ -1,615 +1,693 @@
-// script.js - Complete JavaScript for SM Tattoo Studio
-
-// Header scroll behavior
-const header = document.getElementById('header');
-let lastScrollY = window.scrollY;
-let ticking = false;
-
-function updateHeader() {
-    const currentScrollY = window.scrollY;
-    
-    if (currentScrollY > 100) {
-        header.classList.add('header--scrolled');
-        
-        if (currentScrollY > lastScrollY) {
-            // Scrolling down
-            header.classList.add('header--hidden');
-        } else {
-            // Scrolling up
-            header.classList.remove('header--hidden');
-        }
-    } else {
-        header.classList.remove('header--scrolled', 'header--hidden');
+// SM Tattoo Studio - Mobile Optimized JavaScript
+class SMTattooStudio {
+    constructor() {
+        this.init();
     }
-    
-    lastScrollY = currentScrollY;
-}
 
-// Throttle scroll events for performance
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        requestAnimationFrame(() => {
-            updateHeader();
-            ticking = false;
-        });
-        ticking = true;
+    init() {
+        this.setupHeader();
+        this.setupMobileMenu();
+        this.setupSmoothScroll();
+        this.setupForms();
+        this.setupAnimations();
+        this.setupGallery();
+        this.setupResizeHandler();
+    }
+
+    // Header scroll behavior
+    setupHeader() {
+        const header = document.getElementById('header');
+        if (!header) return;
+
+        // ✅ Active Menu Highlighter
+const currentPage = window.location.pathname.split("/").pop();
+const navLinks = document.querySelectorAll(".nav-link");
+const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+navLinks.forEach(link => {
+    if(link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
     }
 });
 
-// Mobile menu toggle
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobile-menu');
-
-if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-        hamburger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-        hamburger.setAttribute('aria-expanded', !isExpanded);
-        
-        // Prevent body scroll when menu is open
-        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    });
-}
-
-// Close mobile menu when clicking on a link
-const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-mobileNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (hamburger && mobileMenu) {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-    });
+mobileLinks.forEach(link => {
+    if(link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
 });
 
-// Gallery filter functionality
-const filterButtons = document.querySelectorAll('.filter-btn');
-const galleryItems = document.querySelectorAll('.gallery-item');
 
-if (filterButtons.length > 0) {
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        const updateHeader = () => {
+            const currentScrollY = window.scrollY;
             
-            const filterValue = button.getAttribute('data-filter');
-            
-            // Filter gallery items
-            galleryItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                    item.style.display = 'block';
+            if (currentScrollY > 50) {
+                header.classList.add('scrolled');
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    header.classList.add('header--hidden');
                 } else {
-                    item.style.display = 'none';
+                    header.classList.remove('header--hidden');
                 }
-            });
-            
-            // Reflow masonry layout
-            setTimeout(() => {
-                if (typeof Masonry !== 'undefined') {
-                    masonry.layout();
-                }
-            }, 300);
-        });
-    });
-}
-
-// Lightbox functionality
-const lightbox = document.getElementById('lightbox');
-const lightboxImage = document.getElementById('lightbox-image');
-const lightboxTitle = document.getElementById('lightbox-title');
-const lightboxDescription = document.getElementById('lightbox-description');
-const lightboxClose = document.getElementById('lightbox-close');
-const lightboxPrev = document.getElementById('lightbox-prev');
-const lightboxNext = document.getElementById('lightbox-next');
-
-// Initialize lightbox if elements exist
-if (lightbox) {
-    let currentImageIndex = 0;
-    const galleryImages = [];
-    
-    // Populate gallery images array
-    galleryItems.forEach((item, index) => {
-        const img = item.querySelector('img');
-        const type = item.querySelector('.gallery-type')?.textContent || '';
-        const artist = item.querySelector('.gallery-artist')?.textContent || '';
-        
-        galleryImages.push({
-            src: img.src,
-            alt: img.alt,
-            type: type,
-            artist: artist
-        });
-        
-        // Add click event to gallery items
-        item.addEventListener('click', () => {
-            openLightbox(index);
-        });
-    });
-    
-    function openLightbox(index) {
-        currentImageIndex = index;
-        const image = galleryImages[index];
-        
-        lightboxImage.src = image.src;
-        lightboxImage.alt = image.alt;
-        lightboxTitle.textContent = image.type;
-        lightboxDescription.textContent = `By ${image.artist}`;
-        
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    function showNextImage() {
-        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-        openLightbox(currentImageIndex);
-    }
-    
-    function showPrevImage() {
-        currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-        openLightbox(currentImageIndex);
-    }
-    
-    // Event listeners for lightbox controls
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxNext.addEventListener('click', showNextImage);
-    lightboxPrev.addEventListener('click', showPrevImage);
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('active')) return;
-        
-        switch(e.key) {
-            case 'Escape':
-                closeLightbox();
-                break;
-            case 'ArrowRight':
-                showNextImage();
-                break;
-            case 'ArrowLeft':
-                showPrevImage();
-                break;
-        }
-    });
-    
-    // Close lightbox when clicking on backdrop
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
-}
-
-// Form validation and submission
-const bookingForm = document.getElementById('booking-form');
-const contactForm = document.getElementById('contact-form');
-
-function validateForm(form) {
-    const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (!input.value.trim()) {
-            isValid = false;
-            input.style.borderColor = '#ff6b6b';
-        } else {
-            input.style.borderColor = '';
-        }
-        
-        // Email validation
-        if (input.type === 'email' && input.value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(input.value)) {
-                isValid = false;
-                input.style.borderColor = '#ff6b6b';
+            } else {
+                header.classList.remove('scrolled', 'header--hidden');
             }
-        }
-        
-        // Phone validation
-        if (input.type === 'tel' && input.value) {
-            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
-            if (!phoneRegex.test(input.value)) {
-                isValid = false;
-                input.style.borderColor = '#ff6b6b';
+            
+            lastScrollY = currentScrollY;
+            ticking = false;
+        };
+
+        const onScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(updateHeader);
+                ticking = true;
             }
-        }
-    });
-    
-    return isValid;
-}
+        };
 
-function showSuccessMessage(message) {
-    // Create success toast
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: var(--accent);
-        color: var(--bg);
-        padding: 1rem 2rem;
-        border-radius: var(--radius);
-        z-index: 10000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        transform: translateX(400px);
-        transition: transform 0.3s ease;
-    `;
-    toast.textContent = message;
-    
-    document.body.appendChild(toast);
-    
-    // Animate in
-    setTimeout(() => {
-        toast.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Animate out and remove
-    setTimeout(() => {
-        toast.style.transform = 'translateX(400px)';
-        setTimeout(() => {
-            document.body.removeChild(toast);
-        }, 300);
-    }, 4000);
-}
+        window.addEventListener('scroll', onScroll, { passive: true });
+        updateHeader(); // Initial call
+    }
 
-if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    
+
+    // Mobile menu functionality
+    setupMobileMenu() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav');
         
-        if (validateForm(bookingForm)) {
-            // Simulate form submission
-            const formData = new FormData(bookingForm);
-            console.log('Booking form submitted:', Object.fromEntries(formData));
-            
-            // Show success message
-            showSuccessMessage('Thank you! Your booking request has been received. We will contact you shortly.');
-            
-            // Reset form
-            bookingForm.reset();
-        } else {
-            alert('Please fill in all required fields correctly.');
-        }
-    });
-}
+        if (!navToggle || !nav) return;
 
-// Enhanced contact form handler with better error handling
-if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        if (validateForm(contactForm)) {
-            // Show loading state
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span class="loading-spinner"></span> Sending...';
-            submitBtn.disabled = true;
+        // Create mobile menu structure if it doesn't exist
+        let mobileMenu = document.getElementById('mobile-menu');
+        if (!mobileMenu) {
+            mobileMenu = document.createElement('div');
+            mobileMenu.id = 'mobile-menu';
+            mobileMenu.className = 'mobile-menu';
             
-            // Add honeypot field dynamically
-            const honeypot = document.createElement('input');
-            honeypot.type = 'text';
-            honeypot.name = 'website';
-            honeypot.style.display = 'none';
-            honeypot.value = ''; // Leave empty for real users
-            contactForm.appendChild(honeypot);
-            
-            try {
-                const formData = {
-                    name: document.getElementById('contact-name').value.trim(),
-                    email: document.getElementById('contact-email').value.trim(),
-                    phone: document.getElementById('contact-phone').value.trim(),
-                    service: document.getElementById('contact-service').value,
-                    message: document.getElementById('contact-message').value.trim(),
-                    website: honeypot.value // Honeypot field
-                };
+            const navList = document.querySelector('.nav-list');
+            if (navList) {
+                const mobileNav = document.createElement('div');
+                mobileNav.className = 'mobile-nav';
                 
-                const response = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
+                // Clone and modify nav links for mobile
+                const links = navList.querySelectorAll('.nav-link');
+                links.forEach(link => {
+                    const mobileLink = link.cloneNode(true);
+                    mobileLink.classList.add('mobile-nav-link');
+                    mobileNav.appendChild(mobileLink);
                 });
                 
-                const result = await response.json();
-                
-                if (result.success) {
-                    showSuccessMessage(result.message);
-                    contactForm.reset();
-                    
-                    // Log success for analytics
-                    console.log('Contact form submitted successfully:', result.submissionId);
-                } else {
-                    showErrorMessage(result.message || 'There was an error sending your message. Please try again.');
-                }
-                
-            } catch (error) {
-                console.error('Contact form error:', error);
-                showErrorMessage('Network error. Please check your connection and try again.');
-            } finally {
-                // Reset button state
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                
-                // Remove honeypot field
-                contactForm.removeChild(honeypot);
+                mobileMenu.appendChild(mobileNav);
             }
-        } else {
-            showErrorMessage('Please fill in all required fields correctly.');
-        }
-    });
-}
-
-// Enhanced success message function
-function showSuccessMessage(message) {
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: #10B981;
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        z-index: 10000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        transform: translateX(400px);
-        transition: transform 0.3s ease;
-        max-width: 400px;
-    `;
-    toast.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"/>
-            </svg>
-            <span>${message}</span>
-        </div>
-    `;
-    
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateX(0)';
-    }, 100);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateX(400px)';
-        setTimeout(() => {
-            if (toast.parentNode) {
-                document.body.removeChild(toast);
-            }
-        }, 300);
-    }, 5000);
-}
-
-// Error message function
-function showErrorMessage(message) {
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: #EF4444;
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        z-index: 10000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        transform: translateX(400px);
-        transition: transform 0.3s ease;
-        max-width: 400px;
-    `;
-    toast.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
-            </svg>
-            <span>${message}</span>
-        </div>
-    `;
-    
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateX(0)';
-    }, 100);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateX(400px)';
-        setTimeout(() => {
-            if (toast.parentNode) {
-                document.body.removeChild(toast);
-            }
-        }, 300);
-    }, 5000);
-}
-/*if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (validateForm(contactForm)) {
-            // Simulate form submission
-            const formData = new FormData(contactForm);
-            console.log('Contact form submitted:', Object.fromEntries(formData));
             
-            // Show success message
-            showSuccessMessage('Thank you for your message! We will get back to you soon.');
+            // Add social icons
+            const socialIcons = document.createElement('div');
+            socialIcons.className = 'mobile-social';
+            socialIcons.innerHTML = `
+                <a href="https://wa.me/919022125968" target="_blank" class="social-icon" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/smtattoo_studio" target="_blank" class="social-icon" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://youtube.com/@sagarpathade-w7m" target="_blank" class="social-icon" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            `;
+            mobileMenu.appendChild(socialIcons);
             
-            // Reset form
-            contactForm.reset();
-        } else {
-            alert('Please fill in all required fields correctly.');
+            document.body.appendChild(mobileMenu);
         }
-    });
-}*/
 
-// Reviews carousel
-const reviewsTrack = document.getElementById('reviews-track');
-const carouselDots = document.querySelectorAll('.carousel-dot');
+        const toggleMenu = (e) => {
+            e?.stopPropagation();
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            
+            navToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', !isExpanded);
+            
+            // Toggle body scroll
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            
+            // Add backdrop for mobile
+            if (mobileMenu.classList.contains('active')) {
+                this.addBackdrop();
+            } else {
+                this.removeBackdrop();
+            }
+        };
 
-if (reviewsTrack && carouselDots.length > 0) {
-    let currentSlide = 0;
-    const totalSlides = 3; // Assuming 3 slides
-    
-    function goToSlide(index) {
-        currentSlide = index;
-        reviewsTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        const closeMenu = () => {
+            if (mobileMenu.classList.contains('active')) {
+                navToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+                this.removeBackdrop();
+            }
+        };
+
+        // Event listeners
+        navToggle.addEventListener('click', toggleMenu);
         
-        // Update dots
-        carouselDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentSlide);
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+
+        // Close on link click
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('mobile-nav-link')) {
+                closeMenu();
+            }
+        });
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
         });
     }
-    
-    carouselDots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            goToSlide(index);
-        });
-    });
-    
-    // Auto-play carousel
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        goToSlide(currentSlide);
-    }, 5000);
-}
 
-// Load more functionality for gallery
-const loadMoreBtn = document.getElementById('load-more');
-if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', () => {
-        // Simulate loading more items
-        const newItems = [
-            { category: 'realism', src: 'placeholder-tattoo7.jpg', alt: 'Additional realism tattoo', type: 'Realism', artist: 'By Marcus Chen' },
-            { category: 'watercolor', src: 'placeholder-tattoo8.jpg', alt: 'Additional watercolor tattoo', type: 'Watercolor', artist: 'By Sophia Laurent' },
-            { category: 'geometric', src: 'placeholder-tattoo9.jpg', alt: 'Additional geometric tattoo', type: 'Geometric', artist: 'By Kai Thompson' }
-        ];
-        
-        newItems.forEach(item => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.setAttribute('data-category', item.category);
-            
-            galleryItem.innerHTML = `
-                <img src="${item.src}" alt="${item.alt}" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="gallery-type">${item.type}</div>
-                    <div class="gallery-artist">${item.artist}</div>
-                    <div class="gallery-actions">
-                        <button class="gallery-action" aria-label="Zoom">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                            </svg>
-                        </button>
-                        <button class="gallery-action" aria-label="Info">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+    addBackdrop() {
+        let backdrop = document.getElementById('mobile-backdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.id = 'mobile-backdrop';
+            backdrop.style.cssText = `
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 998;
+                backdrop-filter: blur(2px);
             `;
-            
-            document.getElementById('gallery-grid').appendChild(galleryItem);
-        });
-        
-        // Hide load more button after loading all items (simulated)
-        loadMoreBtn.style.display = 'none';
-    });
-}
+            backdrop.addEventListener('click', () => this.closeMobileMenu());
+            document.body.appendChild(backdrop);
+        }
+    }
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+    removeBackdrop() {
+        const backdrop = document.getElementById('mobile-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+    }
+
+    closeMobileMenu() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
         
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            const headerHeight = document.getElementById('header').offsetHeight;
-            const targetPosition = targetElement.offsetTop - headerHeight;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+        if (navToggle && mobileMenu && mobileMenu.classList.contains('active')) {
+            navToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            this.removeBackdrop();
+        }
+    }
+
+    // Smooth scrolling
+    setupSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const href = anchor.getAttribute('href');
+                if (href === '#' || href === '#!') return;
+
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const headerHeight = document.getElementById('header')?.offsetHeight || 0;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    this.closeMobileMenu();
+                }
             });
-        }
-    });
-});
-
-// Initialize page with header state
-document.addEventListener('DOMContentLoaded', () => {
-    updateHeader();
-    
-    // Add loading animation to images
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('load', function() {
-            this.style.opacity = '1';
         });
-        
-        // Set initial opacity for fade-in effect
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
-        
-        // If image is already loaded (cached)
-        if (img.complete) {
-            img.style.opacity = '1';
+    }
+
+    // Form handling
+    setupForms() {
+        // Contact form
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', this.handleFormSubmit.bind(this));
         }
-    });
-    
-    // Add intersection observer for fade-in animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+
+        // Booking form
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', this.handleFormSubmit.bind(this));
+        }
+
+        // Form validation on blur
+        document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearFieldError(input));
+        });
+
+        // Select elements
+        document.querySelectorAll('.form-select').forEach(select => {
+            select.addEventListener('change', () => this.validateField(select));
+        });
+    }
+
+    handleFormSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        
+        if (this.validateForm(form)) {
+            this.submitForm(form);
+        }
+    }
+
+    validateForm(form) {
+        let isValid = true;
+        const requiredFields = form.querySelectorAll('[required]');
+
+        requiredFields.forEach(field => {
+            if (!this.validateField(field)) {
+                isValid = false;
             }
         });
-    }, observerOptions);
-    
-    // Observe elements for scroll animations
-    const animateElements = document.querySelectorAll('.service-card, .gallery-item, .artist-card, .course-card');
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
+
+        return isValid;
+    }
+
+    validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        let message = '';
+
+        // Clear previous errors
+        this.clearFieldError(field);
+
+        if (field.hasAttribute('required') && !value) {
+            isValid = false;
+            message = 'This field is required';
+        } else if (field.type === 'email' && value && !this.isValidEmail(value)) {
+            isValid = false;
+            message = 'Please enter a valid email address';
+        } else if (field.type === 'tel' && value && !this.isValidPhone(value)) {
+            isValid = false;
+            message = 'Please enter a valid phone number';
+        }
+
+        if (!isValid) {
+            this.showFieldError(field, message);
+        } else {
+            field.style.borderColor = '#22c55e';
+        }
+
+        return isValid;
+    }
+
+    isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    isValidPhone(phone) {
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+        return phoneRegex.test(phone);
+    }
+
+    showFieldError(field, message) {
+        field.style.borderColor = '#ef4444';
+        
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.textContent = message;
+        errorElement.style.cssText = `
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            font-weight: 500;
+        `;
+        
+        field.parentNode.appendChild(errorElement);
+    }
+
+    clearFieldError(field) {
+        field.style.borderColor = '';
+        const errorElement = field.parentNode.querySelector('.error-message');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+
+    async submitForm(form) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        form.classList.add('loading');
+
+        try {
+            // Simulate API call - replace with actual endpoint
+            const formData = new FormData(form);
+const data = Object.fromEntries(formData);
+
+const response = await fetch("https://sm-tattoo-studio-2.onrender.com", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
 });
 
-// Service card hover effects
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+if (!response.ok) {
+    throw new Error("Failed to submit form");
+}
+
+            
+            this.showToast('Thank you for your message! We will get back to you soon.', 'success');
+            form.reset();
+            
+            // Reset field borders
+            form.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(field => {
+                field.style.borderColor = '';
+            });
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            this.showToast('There was an error sending your message. Please try again.', 'error');
+        } finally {
+            // Reset form state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            form.classList.remove('loading');
+        }
+    }
+
+    // Toast notifications
+    showToast(message, type = 'success') {
+        // Remove existing toasts
+        document.querySelectorAll('.toast-message').forEach(toast => toast.remove());
+
+        const toast = document.createElement('div');
+        const backgroundColor = type === 'success' ? '#10B981' : '#EF4444';
+        const icon = type === 'success' ? '✓' : '⚠';
         
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+        toast.className = 'toast-message';
+        toast.innerHTML = `
+            <span class="toast-icon">${icon}</span>
+            <span class="toast-text">${message}</span>
+        `;
         
-        const angleY = (x - centerX) / 25;
-        const angleX = (centerY - y) / 25;
+        toast.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: ${backgroundColor};
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: min(90%, 400px);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        `;
         
-        card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+        // Mobile positioning
+        if (window.innerWidth <= 768) {
+            toast.style.top = '80px';
+            toast.style.right = '10px';
+            toast.style.left = '10px';
+            toast.style.maxWidth = 'calc(100% - 20px)';
+            toast.style.transform = 'translateY(-100px)';
+        }
+        
+        document.body.appendChild(toast);
+        
+        // Animate in
+        requestAnimationFrame(() => {
+            toast.style.transform = window.innerWidth <= 768 ? 'translateY(0)' : 'translateX(0)';
+        });
+        
+        // Auto remove
+        setTimeout(() => {
+            toast.style.transform = window.innerWidth <= 768 ? 'translateY(-100px)' : 'translateX(400px)';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    document.body.removeChild(toast);
+                }
+            }, 300);
+        }, 4000);
+    }
+
+    // Scroll animations
+    setupAnimations() {
+        // Use Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements with data-animate attribute
+        document.querySelectorAll('.service-card, .gallery-item, .testimonial-card, .about-teaser').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add animation delay for staggered effects
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.animationDelay = $;{index * 0.1}s;
+        });
+    }
+
+    // Gallery functionality
+    setupGallery() {
+        this.setupGalleryFilters();
+        this.setupImageLoading();
+    }
+
+    setupGalleryFilters() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        if (filterButtons.length === 0 || galleryItems.length === 0) return;
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active state
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter items
+                const filterValue = button.dataset.filter;
+                
+                galleryItems.forEach(item => {
+                    const matches = filterValue === 'all' || item.dataset.category === filterValue;
+                    item.style.display = matches ? 'block' : 'none';
+                    
+                    // Add fade effect
+                    if (matches) {
+                        item.style.animation = 'fadeIn 0.5s ease';
+                    }
+                });
+
+                // Show message if no items match
+                const visibleItems = document.querySelectorAll('.gallery-item[style="display: block"]');
+                this.showGalleryMessage(visibleItems.length === 0);
+            });
+        });
+    }
+
+    showGalleryMessage(show) {
+        let message = document.getElementById('gallery-no-results');
+        
+        if (show && !message) {
+            message = document.createElement('div');
+            message.id = 'gallery-no-results';
+            message.innerHTML = `
+                <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                    <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <h3>No tattoos found</h3>
+                    <p>Try selecting a different filter to see more artwork.</p>
+                </div>
+            `;
+            document.querySelector('.gallery-grid').appendChild(message);
+        } else if (!show && message) {
+            message.remove();
+        }
+    }
+
+    setupImageLoading() {
+        // Lazy load images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    }
+
+    // Handle window resize
+    setupResizeHandler() {
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                this.handleResize();
+            }, 250);
+        });
+    }
+
+    handleResize() {
+        // Close mobile menu on desktop
+        if (window.innerWidth > 768) {
+            this.closeMobileMenu();
+        }
+        
+        // Adjust any other responsive behaviors here
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    new SMTattooStudio();
+});
+
+// Add CSS for animations and enhancements
+const injectStyles = () => {
+    const styles = `
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+
+        .loading {
+            position: relative;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #D4AF37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .fa-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Touch improvements for mobile */
+        @media (max-width: 768px) {
+            .btn, .nav-link, .filter-btn {
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+            
+            .gallery-item {
+                cursor: pointer;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .btn:focus-visible,
+        .nav-link:focus-visible,
+        .filter-btn:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    `;
+
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = styles;
+    document.head.appendChild(styleSheet);
+};
+
+// Inject styles
+injectStyles();
+
+// Service Worker for PWA capabilities (optional)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        // You can register a service worker here for offline functionality
+        console.log('Service Worker support detected');
     });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-    });
+}
+
+//header hide on scroll down and show on scroll up
+let lastScroll = 0;
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > lastScroll) {
+        // 🔽 Scroll Down → hide
+        header.classList.add("hide");
+    } else {
+        // 🔼 Scroll Up → show
+        header.classList.remove("hide");
+    }
+
+    lastScroll = currentScroll;
 });
