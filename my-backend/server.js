@@ -10,13 +10,41 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 4000; // Changed from 5000 to 4000
 
-// Middleware
-app.use(cors());
+
+
+// Middleware   
+// Middleware   
+app.use(cors({
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      'http://127.0.0.1:5500', 
+      'http://localhost:5500',
+      'http://127.0.0.1:5501',
+      'http://localhost:5501',
+      'https://sm-tattoo-studio-2.onrender.com'
+    ];
+    
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Length', 'X-Request-Id'],
+  maxAge: 86400 
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../')));
 
-
+app.options('*', cors());
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'your-mongodb-connection-string';
 
@@ -76,8 +104,8 @@ const Contact = mongoose.model('Contact', contactSchema);
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: '',
+        pass: ''
     }
 });
 
@@ -115,6 +143,7 @@ const rateLimitMiddleware = (req, res, next) => {
 };
 
 // Contact form endpoint
+
 app.post('/api/contact', rateLimitMiddleware, async (req, res) => {
     try {
         const { name, email, phone, service, message, website } = req.body;
@@ -237,46 +266,46 @@ app.post('/api/contact', rateLimitMiddleware, async (req, res) => {
 });
 
 // Contact endpoint
-app.post('/api/contact', async (req, res) => {
-    try {
-        const { name, email, phone, service, message } = req.body;
+// app.post('/api/contact', async (req, res) => {
+//     try {
+//         const { name, email, phone, service, message } = req.body;
 
-        // Validate required fields
-        if (!name || !email || !message) {
-            return res.status(400).json({
-                success: false,
-                message: 'Please fill in all required fields'
-            });
-        }
+//         // Validate required fields
+//         if (!name || !email || !message) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: 'Please fill in all required fields'
+//             });
+//         }
 
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return res.status(400).json({
-                success: false,
-                message: 'Please enter a valid email address'
-            });
-        }
+//         // Validate email format
+//         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//         if (!emailRegex.test(email)) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: 'Please enter a valid email address'
+//             });
+//         }
 
-        // Log for debugging
-        console.log('Received contact form data:', {
-            name, email, phone, service, message
-        });
+//         // Log for debugging
+//         console.log('Received contact form data:', {
+//             name, email, phone, service, message
+//         });
 
-        // Send success response
-        res.status(200).json({
-            success: true,
-            message: 'Message received successfully'
-        });
+//         // Send success response
+//         res.status(200).json({
+//             success: true,
+//             message: 'Message received successfully'
+//         });
 
-    } catch (error) {
-        console.error('Server error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error'
-        });
-    }
-});
+//     } catch (error) {
+//         console.error('Server error:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Internal server error'
+//         });
+//     }
+// });
 
 // Admin API to get all submissions (optional - for admin panel)
 app.get('/api/admin/submissions', async (req, res) => {
@@ -309,6 +338,42 @@ app.get('/api/admin/submissions', async (req, res) => {
 });
 
 // Health check endpoint
+// app.get('/api/health', async (req, res) => {
+//     try {
+//         // Check database connection
+//         await mongoose.connection.db.admin().ping();
+        
+//         res.json({
+//             success: true,
+//             message: 'Server is healthy',
+//             database: 'Connected',
+//             timestamp: new Date().toISOString()
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             message: 'Server health check failed',
+//             database: 'Disconnected',
+//             error: error.message
+//         });
+//     }
+// });
+
+// Serve HTML files
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, req.path));
+// });
+
+// Error handling middleware
+// app.use((error, req, res, next) => {
+//     console.error('🚨 Unhandled error:', error);
+//     res.status(500).json({
+//         success: false,
+//         message: 'Internal server error'
+//     });
+// });
+
+// Health check endpoint
 app.get('/api/health', async (req, res) => {
     try {
         // Check database connection
@@ -330,19 +395,27 @@ app.get('/api/health', async (req, res) => {
     }
 });
 
-// Serve HTML files
+// Serve static files - 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, req.path));
+    // Only serve static files for non-API routes
+    if (!req.path.startsWith('/api/')) {
+        res.sendFile(path.join(__dirname, '../', req.path));
+    } else {
+        res.status(404).json({ success: false, message: 'API endpoint not found' });
+    }
 });
 
-// Error handling middleware
+// Error handling middleware - MUST BE LAST!
 app.use((error, req, res, next) => {
-    console.error('🚨 Unhandled error:', error);
+    console.error('Unhandled error:', error);
     res.status(500).json({
         success: false,
         message: 'Internal server error'
     });
 });
+
+
+
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);

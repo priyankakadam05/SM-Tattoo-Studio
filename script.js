@@ -1,4 +1,10 @@
 // SM Tattoo Studio - Mobile Optimized JavaScript
+const API_URL = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+    ? 'http://localhost:4000'  // Local development
+    : 'https://sm-tattoo-studio-2.onrender.com';  // Production
+
+console.log('Using API URL:', API_URL);
+
 class SMTattooStudio {
     constructor() {
         this.init();
@@ -346,50 +352,50 @@ mobileLinks.forEach(link => {
             errorElement.remove();
         }
     }
+async submitForm(form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+    form.classList.add('loading');
 
-    async submitForm(form) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
+    try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+
         
-        // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-        form.classList.add('loading');
+        const response = await fetch(`${API_URL}/api/contact`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
 
-        try {
-            // Simulate API call - replace with actual endpoint
-            const formData = new FormData(form);
-const data = Object.fromEntries(formData);
-
-const response = await fetch("https://sm-tattoo-studio-2.onrender.com", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-});
-
-if (!response.ok) {
-    throw new Error("Failed to submit form");
-}
-
-            
-            this.showToast('Thank you for your message! We will get back to you soon.', 'success');
-            form.reset();
-            
-            // Reset field borders
-            form.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(field => {
-                field.style.borderColor = '';
-            });
-            
-        } catch (error) {
-            console.error('Form submission error:', error);
-            this.showToast('There was an error sending your message. Please try again.', 'error');
-        } finally {
-            // Reset form state
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            form.classList.remove('loading');
+        if (!response.ok) {
+            throw new Error("Failed to submit form");
         }
+
+        const result = await response.json();
+        
+        this.showToast('Thank you for your message! We will get back to you soon.', 'success');
+        form.reset();
+        
+        // Reset field borders
+        form.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(field => {
+            field.style.borderColor = '';
+        });
+        
+    } catch (error) {
+        console.error('Form submission error:', error);
+        this.showToast('There was an error sending your message. Please try again.', 'error');
+    } finally {
+        // Reset form state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        form.classList.remove('loading');
     }
+}
 
     // Toast notifications
     showToast(message, type = 'success') {
