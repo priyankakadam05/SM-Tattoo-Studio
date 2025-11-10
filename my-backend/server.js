@@ -104,8 +104,8 @@ const Contact = mongoose.model('Contact', contactSchema);
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: '',
-        pass: ''
+        user: 'priyankapkadam38@gmail.com',
+        pass: 'tbyt isff stsx ijyy'
     }
 });
 
@@ -199,7 +199,7 @@ app.post('/api/contact', rateLimitMiddleware, async (req, res) => {
         try {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
-                to: process.env.ADMIN_EMAIL || 'contact@smtattoostudio.com',
+                to: process.env.ADMIN_EMAIL || 'priyankapkadam38@gmail.com',
                 subject: 'New Contact Form Submission - SM Tattoo Studio',
                 html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

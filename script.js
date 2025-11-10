@@ -251,12 +251,6 @@ mobileLinks.forEach(link => {
             contactForm.addEventListener('submit', this.handleFormSubmit.bind(this));
         }
 
-        // Booking form
-        const bookingForm = document.getElementById('bookingForm');
-        if (bookingForm) {
-            bookingForm.addEventListener('submit', this.handleFormSubmit.bind(this));
-        }
-
         // Form validation on blur
         document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
             input.addEventListener('blur', () => this.validateField(input));

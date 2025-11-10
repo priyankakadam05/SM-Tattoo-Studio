@@ -836,131 +836,6 @@ header.hide {
     resize: vertical;
 }
 
-/* Booking Form */
-/* ✅ Booking Form - Same Look as Contact Form */
-.booking-form {
-    background: var(--bg-surface);
-    padding: clamp(1.5rem, 4vw, 2rem);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid rgba(212, 175, 55, 0.12);
-    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.06);
-    max-width: 800px;
-    margin: 0 auto;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(1rem, 3vw, 1.5rem);
-}
-
-/* ✅ Inputs match contact form */
-.booking-form .form-group {
-    position: relative;
-}
-
-.booking-form .form-input,
-.booking-form .form-select,
-.booking-form .form-textarea,
-.booking-form input,
-.booking-form select,
-.booking-form textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: clamp(0.875rem, 3vw, 1rem);
-    border-radius: var(--border-radius);
-    color: var(--text-primary);
-    font-family: inherit;
-    transition: var(--transition);
-}
-/*change*/
-.booking-form input:-webkit-autofill,
-.booking-form select:-webkit-autofill,
-.booking-form textarea:-webkit-autofill {
-    /* The box-shadow trick applies a dark background over the white one */
-    -webkit-box-shadow: 0 0 0 100px #111111 inset !important; 
-    /* Ensures the text color is light/white */
-    -webkit-text-fill-color: var(--text-primary) !important;
-    transition: background-color 5000s ease-in-out 0s;
-}
-/*booking*/
-.booking-form input:focus,
-.booking-form select:focus,
-.booking-form textarea:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
-    outline: none;
-}
-
-/* ✅ Floating labels like contact form */
-.booking-form label {
-    position: absolute;
-    top: -10px;
-    left: 14px;
-    background: var(--bg-surface);
-    padding: 0 6px;
-    font-size: 0.85rem;
-    color: var(--accent-primary);
-}
-
-/* ✅ Button same as contact CTA */
-.booking-form button,
-.booking-form .btn {
-    width: 100%;
-    padding: clamp(1rem, 3vw, 1.125rem);
-    font-size: clamp(1rem, 3vw, 1.125rem);
-
-    background: var(--accent-primary);
-    color: var(--bg-primary);
-    border: 2px solid var(--accent-primary);
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    box-shadow: 0 4px 18px rgba(212,175,55,0.08);
-}
-
-.booking-form button:hover {
-    transform: translateY(-2px);
-    background: var(--accent-secondary);
-    border-color: var(--accent-secondary);
-    color: var(--bg-primary);
-}
-
-/* ✅ Responsive 2-column like contact form */
-@media (min-width: 768px) {
-    .booking-form {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .booking-form .full-width {
-        grid-column: 1 / -1;
-    }
-}
-
-
-.booking-form input,
-.booking-form select,
-.booking-form textarea {
-    background: rgba(255,255,255,0.04);
-    color: var(--text-primary);
-}
-
-.booking-form input:focus,
-.booking-form select:focus,
-.booking-form textarea:focus {
-    background: rgba(255,255,255,0.04); 
-    color:#fff;
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.06);
-}
-
-.booking-form select option {
-    background: #111 !important;
-    color: #fff !important;
-}
-
 /* Contact Form */
 .contact-grid {
     display: grid;
@@ -1173,6 +1048,88 @@ header.hide {
     font-size: 1.05rem;
     line-height: 1.6;
 }
+
+.aftercare-section {
+  background: linear-gradient(180deg, #0a0a0a 0%, #1b1b1b 100%);
+  color: #f0f0f0;
+  padding: 80px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.aftercare-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05), transparent 70%);
+  z-index: 0;
+}
+
+.aftercare-title {
+  font-size: 2.5rem;
+  color: #d4af37;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.aftercare-subtitle {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.aftercare-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.aftercare-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.aftercare-card:hover {
+  transform: translateY(-8px);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #d4af37;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+}
+
+.aftercare-card i {
+  font-size: 2.5rem;
+  color: #d4af37;
+  margin-bottom: 15px;
+}
+
+.aftercare-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.aftercare-card p {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
 
 /* ===== COMPONENTS: TESTIMONIALS ===== */
 .testimonials-grid {
